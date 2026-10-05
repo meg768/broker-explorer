@@ -6,8 +6,14 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		A00000000000000000000001 /* MQTTNIO in Frameworks */ = {isa = PBXBuildFile; productRef = A00000000000000000000011 /* MQTTNIO */; };
+		A00000000000000000000002 /* NIOCore in Frameworks */ = {isa = PBXBuildFile; productRef = A00000000000000000000012 /* NIOCore */; };
+		A00000000000000000000003 /* NIOPosix in Frameworks */ = {isa = PBXBuildFile; productRef = A00000000000000000000013 /* NIOPosix */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
-		F75CDEBF3072E26E002F2471 /* broker-explorer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "broker-explorer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F75CDEBF3072E26E002F2471 /* broker-explorer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Broker Explorer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -23,6 +29,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A00000000000000000000001 /* MQTTNIO in Frameworks */,
+				A00000000000000000000002 /* NIOCore in Frameworks */,
+				A00000000000000000000003 /* NIOPosix in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +74,9 @@
 			);
 			name = "broker-explorer";
 			packageProductDependencies = (
+				A00000000000000000000011 /* MQTTNIO */,
+				A00000000000000000000012 /* NIOCore */,
+				A00000000000000000000013 /* NIOPosix */,
 			);
 			productName = "broker-explorer";
 			productReference = F75CDEBF3072E26E002F2471 /* broker-explorer.app */;
@@ -94,6 +106,10 @@
 			);
 			mainGroup = F75CDEB63072E26E002F2471;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				A00000000000000000000021 /* XCRemoteSwiftPackageReference "mqtt-nio" */,
+				A00000000000000000000022 /* XCRemoteSwiftPackageReference "swift-nio" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = F75CDEC03072E26E002F2471 /* Products */;
 			projectDirPath = "";
@@ -271,13 +287,16 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+                INFOPLIST_KEY_CFBundleDisplayName = "Broker Explorer";
+                INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Connect to MQTT brokers on your local network.";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "se.egelberg.broker-explorer";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Broker Explorer";
+                PRODUCT_MODULE_NAME = broker_explorer;
 				REGISTER_APP_GROUPS = YES;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
@@ -314,13 +333,16 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+                INFOPLIST_KEY_CFBundleDisplayName = "Broker Explorer";
+                INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Connect to MQTT brokers on your local network.";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "se.egelberg.broker-explorer";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Broker Explorer";
+                PRODUCT_MODULE_NAME = broker_explorer;
 				REGISTER_APP_GROUPS = YES;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
@@ -353,6 +375,43 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		A00000000000000000000021 /* XCRemoteSwiftPackageReference "mqtt-nio" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/swift-server-community/mqtt-nio.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.13.0;
+			};
+		};
+		A00000000000000000000022 /* XCRemoteSwiftPackageReference "swift-nio" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-nio.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.80.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A00000000000000000000011 /* MQTTNIO */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A00000000000000000000021 /* XCRemoteSwiftPackageReference "mqtt-nio" */;
+			productName = MQTTNIO;
+		};
+		A00000000000000000000012 /* NIOCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A00000000000000000000022 /* XCRemoteSwiftPackageReference "swift-nio" */;
+			productName = NIOCore;
+		};
+		A00000000000000000000013 /* NIOPosix */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A00000000000000000000022 /* XCRemoteSwiftPackageReference "swift-nio" */;
+			productName = NIOPosix;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = F75CDEB73072E26E002F2471 /* Project object */;
 }
