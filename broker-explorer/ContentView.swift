@@ -67,7 +67,7 @@ struct ContentView: View {
                     Button {
                         store.disconnect()
                     } label: {
-                        Label("Close Connection", systemImage: "bolt.slash")
+                        Label("Disconnect", systemImage: "bolt.slash")
                     }
                 } else {
                     Button {
