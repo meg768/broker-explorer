@@ -170,37 +170,9 @@ struct JSONTextEditor: NSViewRepresentable {
         }
 
         private func surfaceColor(role: SurfaceColorRole) -> NSColor {
-            let surface = SettingsStore.loadSurfaceTheme()
-
-            return NSColor(name: nil) { appearance in
-                let isDark = appearance.bestMatch(from: [.darkAqua, .aqua]) == .darkAqua
-
-                switch (surface, role, isDark) {
-                case (.hard, .key, false):
-                    return NSColor(calibratedRed: 0.13, green: 0.20, blue: 0.27, alpha: 1)
-                case (.hard, .key, true):
-                    return NSColor(calibratedRed: 0.85, green: 0.90, blue: 0.95, alpha: 1)
-                case (.hard, .value, false):
-                    return NSColor(calibratedRed: 0.18, green: 0.36, blue: 0.53, alpha: 1)
-                case (.hard, .value, true):
-                    return NSColor(calibratedRed: 0.57, green: 0.75, blue: 0.91, alpha: 1)
-                case (.grass, .key, false):
-                    return NSColor(calibratedRed: 0.08, green: 0.52, blue: 0.36, alpha: 1)
-                case (.grass, .key, true):
-                    return NSColor(calibratedRed: 0.46, green: 0.88, blue: 0.68, alpha: 1)
-                case (.grass, .value, false):
-                    return NSColor(calibratedRed: 0.02, green: 0.59, blue: 0.41, alpha: 1)
-                case (.grass, .value, true):
-                    return NSColor(calibratedRed: 0.36, green: 0.88, blue: 0.62, alpha: 1)
-                case (.clay, .key, false):
-                    return NSColor(calibratedRed: 0.44, green: 0.20, blue: 0.16, alpha: 1)
-                case (.clay, .key, true):
-                    return NSColor(calibratedRed: 0.99, green: 0.80, blue: 0.72, alpha: 1)
-                case (.clay, .value, false):
-                    return NSColor(calibratedRed: 0.70, green: 0.30, blue: 0.20, alpha: 1)
-                case (.clay, .value, true):
-                    return NSColor(calibratedRed: 0.94, green: 0.60, blue: 0.46, alpha: 1)
-                }
+            switch role {
+            case .key: return .systemBlue
+            case .value: return .systemTeal
             }
         }
     }

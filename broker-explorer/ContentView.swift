@@ -2,8 +2,6 @@ import AppKit
 import SwiftUI
 
 struct ContentView: View {
-    @Environment(\.colorScheme) private var colorScheme
-    @EnvironmentObject private var appearance: AppearanceSettings
     @EnvironmentObject private var store: ExplorerStore
     @State private var searchText = ""
     @State private var publishTopic = ""
@@ -41,12 +39,16 @@ struct ContentView: View {
                 )
             }
 
-            Divider()
-            StatusBar(status: store.status, topicCount: store.topicCount)
         }
-        .id("\(appearance.mode.rawValue)-\(appearance.surface.rawValue)")
-        .frame(minWidth: 1100, minHeight: 660)
+        .frame(minWidth: 790, minHeight: 540)
         .background(Color(nsColor: .windowBackgroundColor))
+        .safeAreaInset(edge: .bottom, spacing: 0) {
+            VStack(spacing: 0) {
+                Divider()
+                StatusBar(status: store.status, topicCount: store.topicCount)
+            }
+            .background(.bar)
+        }
         .searchable(text: $searchText, placement: .toolbar, prompt: "Filter topics")
         .toolbar {
             ToolbarItemGroup {
@@ -78,7 +80,8 @@ struct ContentView: View {
                 }
             }
         }
-        .navigationTitle(store.openConnection?.displayName ?? "Broker Explorer")
+        .navigationTitle("Broker Explorer")
+        .navigationSubtitle(store.openConnection?.displayName ?? "No Connection Open")
         .sheet(isPresented: $store.connectionSheetOpen) {
             ConnectionSheet(
                 connection: $store.connectionDraft,
@@ -106,12 +109,7 @@ struct ContentView: View {
         .onChange(of: topicPanelWidth) { width in
             SettingsStore.save(topicPanelWidth: width)
         }
-        .modifier(FunctionKeyShortcut(keyCode: 97, functionKey: NSF6FunctionKey) {
-            appearance.toggle(over: colorScheme)
-        })
-        .modifier(FunctionKeyShortcut(keyCode: 99, functionKey: NSF3FunctionKey) {
-            appearance.cycleSurface()
-        })
+
     }
 
     private func hydratePublishPanel(from message: MQTTMessage?, topic: String) {
@@ -227,9 +225,9 @@ struct ExplorerSplitView: View {
     let onDeleteTree: (String) -> Void
 
     private let dividerWidth: CGFloat = 10
-    private let minTopicWidth: CGFloat = 420
-    private let minPublishWidth: CGFloat = 320
-    private let defaultPublishWidth: CGFloat = 360
+    private let minTopicWidth: CGFloat = 360
+    private let minPublishWidth: CGFloat = 420
+    private let defaultPublishWidth: CGFloat = 480
 
     var body: some View {
         GeometryReader { proxy in
@@ -252,6 +250,17 @@ struct ExplorerSplitView: View {
 
                 SplitDivider()
                     .frame(width: dividerWidth)
+                    .accessibilityLabel("Topic panel width")
+                    .accessibilityValue("\(Int(topicWidth)) points")
+                    .accessibilityAdjustableAction { direction in
+                        switch direction {
+                        case .increment:
+                            topicPanelWidth = clampedTopicWidth(topicWidth + 20, availableWidth: availableWidth)
+                        case .decrement:
+                            topicPanelWidth = clampedTopicWidth(topicWidth - 20, availableWidth: availableWidth)
+                        @unknown default: break
+                        }
+                    }
                     .gesture(
                         DragGesture(minimumDistance: 0, coordinateSpace: .named("ExplorerSplitView"))
                             .onChanged { value in
@@ -330,9 +339,7 @@ struct TopicTreePanel: View {
 
                 Spacer()
 
-                Text(root.children.isEmpty ? "0 topics" : "\(leafCount(in: root)) topics")
-                    .font(.title3)
-                    .foregroundStyle(.secondary)
+
             }
             .padding([.horizontal, .top], 16)
             .padding(.bottom, 10)
@@ -452,12 +459,12 @@ struct TopicNodeRow: View {
                     // The name uses title3; align the dot's center to its glyphs,
                     // without moving the shared name/payload baseline.
                     node.children.isEmpty
-                        ? dimensions[VerticalAlignment.center] + NSFont.preferredFont(forTextStyle: .title3).capHeight / 2
+                        ? dimensions[VerticalAlignment.center] + NSFont.preferredFont(forTextStyle: .body).capHeight / 2
                         : dimensions[.firstTextBaseline]
                 }
 
                 Text(node.name)
-                    .font(.title3)
+                    .font(.body)
                     .foregroundStyle(isSelected ? AppColors.heading : AppColors.topicName)
                     .lineLimit(1)
 
@@ -480,8 +487,8 @@ struct TopicNodeRow: View {
             .contentShape(Rectangle())
             .padding(.leading, CGFloat(level * 18))
             .padding(.horizontal, 6)
-            .frame(height: 28)
-            .background(isSelected ? AppColors.selectionBackground : Color.clear)
+            .frame(minHeight: 24)
+            .background(isSelected ? Color.accentColor.opacity(0.18) : Color.clear)
             .onTapGesture {
                 onSelect(node.path)
                 if !node.children.isEmpty {
@@ -520,6 +527,7 @@ struct PublishPanel: View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
                 Text("Topic")
+                    .font(.headline)
 
                 Spacer()
 
@@ -553,10 +561,10 @@ struct PublishPanel: View {
             .foregroundStyle(.secondary)
             .frame(maxWidth: .infinity, alignment: .trailing)
 
-            HStack {
-                Text("Message")
+            Text("Message")
+                .font(.headline)
 
-                Spacer()
+            HStack {
 
                 Button {
                     if canFormatJSON {
@@ -659,10 +667,10 @@ struct StatusBar: View {
             Text(topicCount == 1 ? "1 topic" : "\(topicCount) topics")
                 .foregroundStyle(AppColors.badgeText)
         }
-        .font(.callout)
-        .padding(.vertical, 6)
-        .padding(.horizontal, 16)
-        .background(AppColors.panelBackground)
+        .font(.caption)
+        .foregroundStyle(.secondary)
+        .padding(.vertical, 8)
+        .padding(.horizontal)
     }
 
     private var statusTint: Color {

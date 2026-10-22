@@ -10,17 +10,17 @@ Broker Explorer is a native macOS SwiftUI Xcode application. Use
 
 - Bundle identifier: `se.egelberg.broker-explorer`.
 - Apple Developer team: `52A6FA9VB5` (Magnus Egelberg).
-- Release version/build: `1.0 (1)` in the Xcode configuration.
+- Release version/build: `1.0 (3)` in the Xcode configuration.
 - Category: `public.app-category.developer-tools`.
-- Deployment target: macOS 26.5, inherited from the new project.
+- Deployment target: macOS 14.0; lowered from template-inherited 26.5 on 2026-10-17 after successful universal Release archive. Actual macOS 14 runtime remains to be tested.
 - App Sandbox and outgoing network client access are enabled.
 - The existing MQTT-purple icon is preserved, including all Mac App Store sizes.
 
 The clean Xcode foundation previously built, archived, passed App Store Connect
 validation, and uploaded version 1.0 (1). Its checkpoint is
-`v26.10.04.22.24`. The restored application has subsequently built and archived,
-but has not been uploaded or revalidated in App Store Connect. A future upload
-will need a new build number; this migration deliberately preserved versioning.
+`v26.10.04.22.24`. The restored application and GUI updates have subsequently been prepared for
+distribution as 1.0 (3); see `DISTRIBUTION.md` for current validation and test
+coverage. No new build has been uploaded during the 2026-10-17 preparation.
 
 Do not introduce an application Package.swift, custom build scripts, manually
 assembled app bundles, or a new signing architecture. Use normal Xcode builds,
@@ -142,3 +142,11 @@ When requested, save context here, commit, and create an annotated local-time ta
 using `vYY.MM.DD.HH.mm` in Europe/Stockholm, annotation `Broker Explorer <tag>`.
 Push main and the specific tag; verify remote hashes and a clean working tree.
 Do not commit or push without the user's instruction.
+
+## Distribution preparation — 2026-10-17
+
+See `DISTRIBUTION.md` for current artifacts, exact test coverage, signing/export
+settings, App Store Connect validation status and remaining owner decisions.
+`Distribution/ExportOptions.plist` exports locally using automatic App Store signing;
+it does not upload. Never upload, submit for review or publish without explicit
+authorization. Preserve the GUI changes already present before distribution work.

@@ -5,6 +5,8 @@
 	};
 	objectVersion = 77;
 	objects = {
+A15500000000000000000001 /* Generate Build Metadata */ = { isa = PBXShellScriptBuildPhase; alwaysOutOfDate = 1; buildActionMask = 2147483647; files = (); inputPaths = (); name = "Generate Build Metadata"; outputPaths = ("$(DERIVED_FILE_DIR)/ExplorerBuildMetadata.h",); runOnlyForDeploymentPostprocessing = 0; shellPath = /bin/sh; shellScript = "set -eu\nstamp=$(/bin/date '+%Y%m%d%H%M|%Y-%m-%d %H:%M')\nnumber=${stamp%%|*}\nreadable=${stamp#*|}\n/bin/mkdir -p \"${DERIVED_FILE_DIR}\"\n/usr/bin/printf '#define EXPLORER_BUILD_NUMBER %s\\n#define EXPLORER_BUILD_TIMESTAMP %s\\n' \"$number\" \"$readable\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n"; };
+
 
 /* Begin PBXBuildFile section */
 		A00000000000000000000001 /* MQTTNIO in Frameworks */ = {isa = PBXBuildFile; productRef = A00000000000000000000011 /* MQTTNIO */; };
@@ -60,7 +62,7 @@
 		F75CDEBE3072E26E002F2471 /* broker-explorer */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = F75CDECA3072E26F002F2471 /* Build configuration list for PBXNativeTarget "broker-explorer" */;
-			buildPhases = (
+			buildPhases = (A15500000000000000000001 /* Generate Build Metadata */,
 				F75CDEBB3072E26E002F2471 /* Sources */,
 				F75CDEBC3072E26E002F2471 /* Frameworks */,
 				F75CDEBD3072E26E002F2471 /* Resources */,
@@ -195,7 +197,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 26.5;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -253,7 +255,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 26.5;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
@@ -268,7 +270,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+
 				DEVELOPMENT_TEAM = 52A6FA9VB5;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -283,10 +285,10 @@
 				ENABLE_RESOURCE_ACCESS_LOCATION = NO;
 				ENABLE_RESOURCE_ACCESS_PRINTING = NO;
 				ENABLE_RESOURCE_ACCESS_USB = NO;
-				ENABLE_USER_SELECTED_FILES = readonly;
-				GENERATE_INFOPLIST_FILE = YES;
+				ENABLE_USER_SELECTED_FILES = NO;
+				INFOPLIST_FILE = "Distribution/BuildInfo.plist"; INFOPLIST_PREPROCESS = YES; INFOPLIST_PREFIX_HEADER = "$(DERIVED_FILE_DIR)/ExplorerBuildMetadata.h"; GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2026 Magnus Egelberg";
                 INFOPLIST_KEY_CFBundleDisplayName = "Broker Explorer";
                 INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Connect to MQTT brokers on your local network.";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -314,7 +316,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+
 				DEVELOPMENT_TEAM = 52A6FA9VB5;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -329,10 +331,10 @@
 				ENABLE_RESOURCE_ACCESS_LOCATION = NO;
 				ENABLE_RESOURCE_ACCESS_PRINTING = NO;
 				ENABLE_RESOURCE_ACCESS_USB = NO;
-				ENABLE_USER_SELECTED_FILES = readonly;
-				GENERATE_INFOPLIST_FILE = YES;
+				ENABLE_USER_SELECTED_FILES = NO;
+				INFOPLIST_FILE = "Distribution/BuildInfo.plist"; INFOPLIST_PREPROCESS = YES; INFOPLIST_PREFIX_HEADER = "$(DERIVED_FILE_DIR)/ExplorerBuildMetadata.h"; GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2026 Magnus Egelberg";
                 INFOPLIST_KEY_CFBundleDisplayName = "Broker Explorer";
                 INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Connect to MQTT brokers on your local network.";
 				LD_RUNPATH_SEARCH_PATHS = (

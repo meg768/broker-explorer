@@ -4,18 +4,27 @@ import SwiftUI
 @main
 struct BrokerExplorerApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
-    @StateObject private var appearance = AppearanceSettings()
     @StateObject private var store = ExplorerStore()
 
     var body: some Scene {
         Window("Broker Explorer", id: "explorer") {
             ContentView()
                 .environmentObject(store)
-                .environmentObject(appearance)
-                .preferredColorScheme(appearance.preferredColorScheme)
         }
+        .defaultSize(width: 1100, height: 700)
         .windowStyle(.titleBar)
         .commands {
+            CommandGroup(replacing: .appInfo) {
+                Button("About Broker Explorer") {
+                    let info = Bundle.main.infoDictionary ?? [:]
+                    let version = info["CFBundleShortVersionString"] as? String ?? "1.0"
+                    let timestamp = info["ExplorerBuildTimestamp"] as? String ?? ""
+                    NSApp.orderFrontStandardAboutPanel(options: [
+                        .applicationVersion: "Version \(version)\nBuild \(timestamp)",
+                        .version: "",
+                    ])
+                }
+            }
             CommandGroup(replacing: .help) {
                 Button("Broker Explorer Help") {
                     let alert = NSAlert()
